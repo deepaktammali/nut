@@ -4,16 +4,22 @@ import (
 	"fmt"
 	"net/http"
 	"nut/internal/config"
+	"nut/internal/stores"
+	"nut/internal/stores/postgres"
 )
 
 type Handler struct {
 	http.Handler
-	app *config.AppConfig
+	app   *config.AppConfig
+	store *stores.Store
 }
 
 func NewHandler(app *config.AppConfig) *Handler {
 	handler := new(Handler)
 	handler.app = app
+
+	pgStore := postgres.NewStore(app.Db)
+	handler.store = pgStore
 
 	var router = http.NewServeMux()
 	router.Handle("/ping", http.HandlerFunc(handler.pingHandler))
