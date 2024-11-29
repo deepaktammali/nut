@@ -1,10 +1,13 @@
 package stores
 
-import "nut/internal/entities"
+import (
+	"nut/internal/dtos"
+	"nut/internal/entities"
+)
 
 type TicketStore interface {
-	CreateTicket(Ticket entities.Ticket) (string, error)
-	GetTicket(id string) (*entities.Ticket, error)
-	ArchiveTicket(id string) (bool, error)
+	CreateTicket(Ticket dtos.CreateTicketDto) (*entities.Ticket, error)
+	GetTicket(id int) (*entities.Ticket, error)
+	ArchiveTicket(id int) (bool, error)
 	ListTickets() ([]entities.Ticket, error)
 }

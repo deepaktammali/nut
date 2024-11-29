@@ -9,7 +9,7 @@ import (
 	"nut/internal/handlers"
 )
 
-const apiPort = "8080"
+const apiPort = ":8080"
 
 func main() {
 	db, err := database.NewDb(database.DatabaseDriverPgx, database.BuildPostgresDSN())
@@ -17,6 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error connecting to the database - %s", err)
 	}
+	defer db.Close()
 
 	app := config.AppConfig{
 		Db:          db,
@@ -28,5 +29,10 @@ func main() {
 		Handler: handlers.NewHandler(&app),
 	}
 
-	log.Fatal(server.ListenAndServe())
+	log.Printf("Will listen on address %s", server.Addr)
+	err = server.ListenAndServe()
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }

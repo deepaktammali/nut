@@ -22,13 +22,14 @@ func NewHandler(app *config.AppConfig) *Handler {
 	handler.store = pgStore
 
 	var router = http.NewServeMux()
-	router.Handle("/ping", http.HandlerFunc(handler.pingHandler))
+	router.Handle("GET /health", http.HandlerFunc(handler.healthHandler))
+	router.Handle("POST /tickets", http.HandlerFunc(handler.createTicket))
 
 	handler.Handler = router
 	return handler
 }
 
-func (h *Handler) pingHandler(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) healthHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "Pong")
+	fmt.Fprint(w, "OK")
 }

@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 const DatabaseDriverPgx = "pgx"
@@ -22,11 +24,11 @@ func BuildPostgresDSN() string {
 		envValue, exists := os.LookupEnv(envItem)
 
 		if !exists {
-			panic(fmt.Sprintf("Environment variable %s is required to be set but not set", envValue))
+			panic(fmt.Sprintf("Environment variable %s is required to be set but not set", envItem))
 		}
 
 		if envItem == "" {
-			panic(fmt.Sprintf("Environment variable %s is required to be non empty", envValue))
+			panic(fmt.Sprintf("Environment variable %s is required to be non empty", envItem))
 		}
 
 		dbParams[envItem] = envValue
@@ -43,7 +45,6 @@ func NewDb(driverName string, dsn string) (*sql.DB, error) {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		return nil, err
 	}
-	defer db.Close()
 
 	err = db.Ping()
 
