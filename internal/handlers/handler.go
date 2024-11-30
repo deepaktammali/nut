@@ -24,6 +24,9 @@ func NewHandler(app *config.AppConfig) *Handler {
 	var router = http.NewServeMux()
 	router.Handle("GET /health", http.HandlerFunc(handler.healthHandler))
 	router.Handle("POST /tickets", http.HandlerFunc(handler.createTicket))
+	router.Handle("GET /tickets/{ticketId}", http.HandlerFunc(handler.getTicket))
+	router.Handle("POST /tickets/{ticketId}", http.HandlerFunc(handler.updateTicket))
+	router.Handle("GET /tickets", http.HandlerFunc(handler.listTickets))
 
 	handler.Handler = router
 	return handler

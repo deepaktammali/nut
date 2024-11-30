@@ -43,7 +43,7 @@ func WriteToResponse(w http.ResponseWriter, response *Response, headers http.Hea
 	w.Write(response_serialied)
 }
 
-func WriteErrorToResponse(w http.ResponseWriter, err string, headers http.Header, statusCodes ...int) {
+func WriteErrorResponse(w http.ResponseWriter, err string, headers http.Header, statusCodes ...int) {
 	var response = new(Response)
 	response.Error = err
 	response.Success = true
@@ -51,7 +51,7 @@ func WriteErrorToResponse(w http.ResponseWriter, err string, headers http.Header
 	WriteToResponse(w, response, headers, statusCodes...)
 }
 
-func WriteSuccessToResponse(w http.ResponseWriter, data any, headers http.Header, statusCodes ...int) {
+func WriteSuccessResponse(w http.ResponseWriter, data any, headers http.Header, statusCodes ...int) {
 	var response = new(Response)
 	response.Data = data
 	response.Success = true

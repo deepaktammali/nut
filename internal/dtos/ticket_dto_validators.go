@@ -1,19 +1,17 @@
 package dtos
 
-func (dto *CreateTicketDto) Validate() map[string]string {
-	var errors = make(map[string]string)
-
+func (dto *CreateTicketDto) Validate() string {
 	if dto.Title == "" {
-		errors["title"] = "Title is required field"
+		return "Title is required field"
 	}
 
 	if dto.Description == "" {
-		errors["description"] = "Description is required field"
+		return "Description is required field"
 	}
 
 	if dto.Priority == "" {
-		errors["priority"] = "Priority is required field"
+		return "Priority is required field"
 	}
 
-	return errors
+	return ""
 }

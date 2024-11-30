@@ -8,6 +8,7 @@ type Ticket struct {
 	Description string
 	Status      string
 	Priority    string
+	Archived    bool
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
