@@ -89,11 +89,11 @@ go run cmd/api/main.go
 
 ## Roadmap
 
-[] Implementation of `DELETE /tickets/{id}` endpoint
-[] Concurrent task processing using goroutines
-[] Background task status updates
-[] Unit tests for business logic
-[] Authentication and Authorization
+- [ ] Implementation of `DELETE /tickets/{id}` endpoint
+- [ ] Concurrent task processing using goroutines
+- [ ] Background task status updates
+- [ ] Unit tests for business logic
+- [ ] Authentication and Authorization
 
 ## Project Structure
 
